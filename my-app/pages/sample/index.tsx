@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { SampleRequest, getCategoryList } from "@/pages/api/sampleApi";
+import { SampleRequest, getCategoryList } from "@/apis/sampleApi";
 
 function SamplePage() {
   const [sample, setSampleList] = useState<Array<SampleRequest>>(
@@ -41,7 +41,9 @@ function SamplePage() {
       <ul>
         {sample.map((s) => (
           <li key={s.node_id}>
-            <Link href={`/sample/detail/${s.node_id}`}>
+            <Link
+              href={{ pathname: "/sample/detail", query: { id: s.node_id } }}
+            >
               카테고리명: {s.node_nm}
             </Link>
             <br />

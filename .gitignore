@@ -1,3 +1,6 @@
 # Project exclude paths
 /my-app/.next/
 /my-app/node_modules/
+/my-app/out/
+./first-nextjs.iml
+./.idea

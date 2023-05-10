@@ -11,6 +11,9 @@ export default function Home() {
         <title>Index 페이지</title>
       </Head>
       <h2>index페이지 입니다.</h2>
+      <br />
+      <Link href="/sample">샘플페이지로 이동</Link>
+      <br />
     </div>
   );
 }
