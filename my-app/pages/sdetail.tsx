@@ -32,16 +32,16 @@ function ServerSidePage({ data }: any) {
   );
 }
 
-export async function getServerSideProps(cdx) {
+export async function getServerSideProps(cdx: any) {
   console.log("debugging id?");
-  console.log(cdx.params.id);
+  const { id } = cdx.query;
   const data = await getDetail({
     table_nm: "tb_category",
     where_info: [
       {
         table_nm: "tb_category",
         key: "node_id",
-        value: cdx.params.id,
+        value: id,
         compare_op: "Equal"
       }
     ]
