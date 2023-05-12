@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { SampleRequest, getDetail } from "@/apis/sampleApi";
+import { SampleRequest, getDetail } from "@/pages/api/sampleApi";
 
 function SampleDetailPage() {
   const router = useRouter();

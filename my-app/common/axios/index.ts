@@ -7,7 +7,7 @@ import {
 //create an axios instance
 const api: apiAxiosInterface = axios.create({
   //http://192.168.100.126:9010/route/meta/portal/api/getCategoryList
-  baseURL: "/route"
+  baseURL: ""
 });
 
 api.interceptors.request.use(

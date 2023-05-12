@@ -12,7 +12,9 @@ export default function Home() {
       </Head>
       <h2>index페이지 입니다.</h2>
       <br />
-      <Link href="/sample">샘플페이지로 이동</Link>
+      {/*<Link href="/sample">샘플페이지로 이동</Link>*/}
+      <br />
+      <Link href="/static">정적경로 - 정적 페이지로 이동</Link>
       <br />
     </div>
   );

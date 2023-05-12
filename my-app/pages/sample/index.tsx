@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { SampleRequest, getCategoryList } from "@/apis/sampleApi";
+import { SampleRequest, getCategoryList } from "@/pages/api/sampleApi";
 
 function SamplePage() {
   const [sample, setSampleList] = useState<Array<SampleRequest>>(
