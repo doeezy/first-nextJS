@@ -1,13 +1,14 @@
 import { AxiosInstance, AxiosRequestConfig } from "axios";
 
-export interface APIDataResponse<T> {
-  result: number;
-  errorMessage: string;
-  data?: T;
-}
+// export interface APIDataResponse<T> {
+//   result?: T;
+//   message?: string;
+//   code?: string;
+//   status?: boolean;
+// }
 
 export interface commonResponse<T> {
-  data: APIDataResponse<T>;
+  data: T;
   status: number;
 }
 

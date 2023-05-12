@@ -2,9 +2,6 @@ import Link from "next/link";
 import Head from "next/head";
 
 export default function Home() {
-  // const getData = () => {
-  //   $axios.get("https://jsonplaceholder.typicode.com/posts");
-  // };
   return (
     <div>
       <Head>
@@ -12,7 +9,6 @@ export default function Home() {
       </Head>
       <h2>index페이지 입니다.</h2>
       <br />
-      {/*<Link href="/sample">샘플페이지로 이동</Link>*/}
       <br />
       <Link href="/static">정적경로 - 정적 페이지로 이동</Link>
       <br />

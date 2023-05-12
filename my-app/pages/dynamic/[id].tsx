@@ -80,8 +80,6 @@ export async function getStaticProps({
   params: { id: string };
 }) {
   // get all the data needed for rendering the page
-  console.log("debugging getStaticProps() params");
-  console.log(id);
   const data = await getDetail({
     table_nm: "tb_category",
     where_info: [

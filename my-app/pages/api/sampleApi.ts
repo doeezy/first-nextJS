@@ -8,10 +8,10 @@ export type SampleRequest = {
   _order: number;
 };
 
-const apiBaseUrl = "http://192.168.100.126:9010/route";
+const apiBaseUrl = "http://localhost:9090/api";
 
 export const getCategoryList = async () => {
-  return await api.get(`${apiBaseUrl}/meta/portal/api/getCategoryList`);
+  return await api.get(`${apiBaseUrl}/category/getCategoryList`);
 };
 export const getDetail = async (params: any) => {
   const res: any = await api.post(

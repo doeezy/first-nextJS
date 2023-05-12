@@ -4,7 +4,6 @@ import api from "@/common/axios";
 import { getCategoryList, SampleRequest } from "@/pages/api/sampleApi";
 
 function StaticPage({ data }: any) {
-  console.log(data);
   return (
     <div>
       <Head>
@@ -38,8 +37,6 @@ export async function getStaticProps() {
   let data = [] as any;
   try {
     //const res = await axios.get("http://192.168.100.126:9010/route/meta/portal/api/getCategoryList")
-    // const res = await api.get("http://192.168.100.126:9010/route/meta/portal/api/getCategoryList")
-    // data = res.data.data
     await getCategoryList().then((res: any) => (data = res));
   } catch (err: any) {
     console.log(err);

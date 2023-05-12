@@ -2,8 +2,6 @@ import Head from "next/head";
 import { getDetail, SampleRequest } from "@/pages/api/sampleApi";
 
 function ServerSidePage({ data }: any) {
-  console.log("debugging page");
-  console.log(data);
   function getDataByKeys(obj: SampleRequest) {
     let k: keyof SampleRequest;
     let dataArr = [];
@@ -33,7 +31,6 @@ function ServerSidePage({ data }: any) {
 }
 
 export async function getServerSideProps(cdx: any) {
-  console.log("debugging id?");
   const { id } = cdx.query;
   const data = await getDetail({
     table_nm: "tb_category",
