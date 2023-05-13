@@ -22,6 +22,8 @@ api.interceptors.request.use(
 let errMsg = "시스템 에러가 발생했습니다. 관리자에게 문의하세요.";
 api.interceptors.response.use(
   async (response: commonResponse<any>) => {
+    console.log("debugging axios !!!")
+    console.log(response)
     return response.data;
   },
 

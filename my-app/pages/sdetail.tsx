@@ -1,9 +1,9 @@
 import Head from "next/head";
-import { getDetail, SampleRequest } from "@/pages/api/sampleApi";
+import { getUserInfoByProperty, UserType } from "@/pages/api/sampleApi";
 
 function ServerSidePage({ data }: any) {
-  function getDataByKeys(obj: SampleRequest) {
-    let k: keyof SampleRequest;
+  function getDataByKeys(obj: UserType) {
+    let k: keyof UserType;
     let dataArr = [];
     let index = 0;
     for (k in obj) {
@@ -32,17 +32,7 @@ function ServerSidePage({ data }: any) {
 
 export async function getServerSideProps(cdx: any) {
   const { id } = cdx.query;
-  const data = await getDetail({
-    table_nm: "tb_category",
-    where_info: [
-      {
-        table_nm: "tb_category",
-        key: "node_id",
-        value: id,
-        compare_op: "Equal"
-      }
-    ]
-  });
+  const data = await getUserInfoByProperty(`scope=userId&value=${id}`);
 
   return {
     props: {

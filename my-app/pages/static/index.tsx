@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import api from "@/common/axios";
-import { getCategoryList, SampleRequest } from "@/pages/api/sampleApi";
+import { getUserList, UserType } from "@/pages/api/sampleApi";
 
 function StaticPage({ data }: any) {
   return (
@@ -19,13 +19,11 @@ function StaticPage({ data }: any) {
       </p>
       <br />
       <br />
-      {data.map((s: SampleRequest) => (
-        <li key={s.node_id}>
-          <Link href={{ pathname: `/dynamic/${s.node_id}` }}>
-            카테고리명: {s.node_nm}
+      {data.map((s: UserType) => (
+        <li key={s.userId}>
+          <Link href={{ pathname: `/dynamic/${s.userId}` }}>
+            닉네임: {s.nickname}
           </Link>
-          <br />
-          정렬순서: {s._order}
         </li>
       ))}
     </div>
@@ -37,7 +35,7 @@ export async function getStaticProps() {
   let data = [] as any;
   try {
     //const res = await axios.get("http://192.168.100.126:9010/route/meta/portal/api/getCategoryList")
-    await getCategoryList().then((res: any) => (data = res));
+    await getUserList().then((res: any) => (data = res.result));
   } catch (err: any) {
     console.log(err);
   }

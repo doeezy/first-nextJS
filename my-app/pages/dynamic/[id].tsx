@@ -1,9 +1,9 @@
 import Head from "next/head";
-import { getDetail, SampleRequest } from "@/pages/api/sampleApi";
+import { getUserInfoByProperty, UserType } from "@/pages/api/sampleApi";
 
 function DynamicRouteStaticPage({ data }: any) {
-  function getDataByKeys(obj: SampleRequest) {
-    let k: keyof SampleRequest;
+  function getDataByKeys(obj: UserType) {
+    let k: keyof UserType;
     let dataArr = [];
     let index = 0;
     for (k in obj) {
@@ -41,16 +41,16 @@ function DynamicRouteStaticPage({ data }: any) {
 export async function getStaticPaths() {
   // id값을 하나하나 지정해주기
   const paths = [
-    { params: { id: "757ba1a6-0101-4aec-b840-023bef5a8e9f" } },
-    { params: { id: "8e370892-1499-4e04-8236-ee83ae7d0465" } }
+    { params: { id: 1 } },
+    { params: { id: 2 } }
   ];
 
   // 전체 데이터를 가져온 뒤 id값만 반환
-  // const allData = await getCategoryList();
-  // const paths = allData.map((d: SampleRequest) => {
+  // const allData = await getUserList();
+  // const paths = allData.map((d: UserType) => {
   //     return {
   //         params: {
-  //             id: d.node_id
+  //             id: d.userId
   //         }
   //     }
   // })
@@ -80,17 +80,7 @@ export async function getStaticProps({
   params: { id: string };
 }) {
   // get all the data needed for rendering the page
-  const data = await getDetail({
-    table_nm: "tb_category",
-    where_info: [
-      {
-        table_nm: "tb_category",
-        key: "node_id",
-        value: id,
-        compare_op: "Equal"
-      }
-    ]
-  });
+  const data = await getUserInfoByProperty(`scope=userId&value=${id}`);
   return {
     props: { data }
   };

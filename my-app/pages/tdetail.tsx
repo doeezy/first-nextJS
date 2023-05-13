@@ -1,34 +1,41 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getDetail, SampleRequest } from "@/pages/api/sampleApi";
+import { getUserInfoByProperty, UserType } from "@/pages/api/sampleApi";
 
+class Users {
+  userId!: number;
+  nickname!: string;
+  typeCdx!: number;
+  rgsDate!: string;
+  uptDate!: string;
+  loginId!: string;
+  password!: string;
+  phone!: string;
+  externalId!: string;
+  socialCdx!: number;
+}
 function TestPage() {
   const router = useRouter();
   const { id } = router.query;
-  const [sample, setSample] = useState<SampleRequest>({} as SampleRequest);
+  const [sample, setSample] = useState<Users>(new Users());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // 페이지 진입시 실행
   useEffect(() => {
     //if (!router.isReady) return;
-    const fetchData = async () => {
+    console.log("useEffect start");
+    async function getData() {
       try {
-        await getDetail({
-          table_nm: "tb_category",
-          where_info: [
-            {
-              table_nm: "tb_category",
-              key: "node_id",
-              value: id,
-              compare_op: "Equal"
-            }
-          ]
-        })
+        await getUserInfoByProperty(`scope=userId&value=${id}`)
           .then((res: any) => {
+            console.log("debugging res");
             console.log(res);
-            setSample(res);
+            console.log(res.result);
+            if (res.hasOwnProperty("result")) {
+              setSample(res.result);
+            }
           })
           .finally(() => {
             setLoading(false);
@@ -37,24 +44,25 @@ function TestPage() {
         setError(err);
         alert(err);
       }
-    };
-    if (loading) {
-      fetchData();
     }
+    getData();
   }, [id]);
   // if (loading) return <div>로딩중입니다.</div>;
   // if (error) return <div>에러가 발생했습니다.</div>;
 
-  async function getDataByKeys(data: SampleRequest) {
-    let k: keyof SampleRequest;
-    let dataArr = [];
-    let index = 0;
-    for (k in data) {
-      dataArr.push(<p key={index}>{data[k]}</p>);
-      index++;
-    }
-    return dataArr;
-  }
+  // async function getDataByKeys() {
+  //   if (sample == null) {
+  //     return <p>로딩중</p>;
+  //   }
+  //   let k: keyof Users;
+  //   let dataArr = [];
+  //   let index = 0;
+  //   for (k in sample) {
+  //     dataArr.push(<p key={index}>{sample[k]}</p>);
+  //     index++;
+  //   }
+  //   return dataArr;
+  // }
 
   return (
     <div>
@@ -62,51 +70,8 @@ function TestPage() {
         <title>Sample Detail 페이지</title>
       </Head>
       <h2>Sample Detail 페이지 입니다.</h2>
-      <div>{getDataByKeys(sample)}</div>
+      <div>{sample.nickname}</div>
     </div>
   );
 }
-// 동적 페이지의 경우 getServerSideProps || getInitialProps 를 선언해줘야
-// 페이지 요청시 마다 페이지를 재 랜더링함
-// next v9 이상에서는 getInitialProps 대신 getServerSideProps를 사용하도록 가이드함
-// export async function getServerSideProps({
-//   params: { id }
-// }: {
-//   params: { id: string };
-// }) {
-//   return {
-//     props: {
-//       id
-//     }
-//   };
-// }
-//
-// export async function getStaticProps({ params }) {
-//   console.log("debugging params");
-//   console.log(params.id);
-//   let resData = null;
-//   try {
-//     await getDetail({
-//       table_nm: "tb_category",
-//       where_info: [
-//         {
-//           table_nm: "tb_category",
-//           key: "node_id",
-//           value: params.id,
-//           compare_op: "Equal"
-//         }
-//       ]
-//     }).then((res: any) => {
-//       console.log(res);
-//       resData = res;
-//     });
-//   } catch (err: any) {
-//     alert(err);
-//   }
-//   // res = await fetch(`https://.../posts/${params.id}`);
-//   const data = await resData.json();
-//
-//   return { props: { data } };
-// }
-
 export default TestPage;
