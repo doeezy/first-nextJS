@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { getUserInfoByProperty, UserType } from "@/pages/api/sampleApi";
+import { getUserInfoById, UserType } from "@/pages/api/sampleApi";
 
 function DynamicRouteStaticPage({ data }: any) {
   function getDataByKeys(obj: UserType) {
@@ -40,10 +40,7 @@ function DynamicRouteStaticPage({ data }: any) {
 
 export async function getStaticPaths() {
   // id값을 하나하나 지정해주기
-  const paths = [
-    { params: { id: 1 } },
-    { params: { id: 2 } }
-  ];
+  const paths = [{ params: { id: "1" } }, { params: { id: "2" } }];
 
   // 전체 데이터를 가져온 뒤 id값만 반환
   // const allData = await getUserList();
@@ -79,8 +76,13 @@ export async function getStaticProps({
 }: {
   params: { id: string };
 }) {
+  let data = {};
   // get all the data needed for rendering the page
-  const data = await getUserInfoByProperty(`scope=userId&value=${id}`);
+  await getUserInfoById(id).then((res: any) => {
+    if (res.hasOwnProperty("result")) {
+      data = res.result;
+    }
+  });
   return {
     props: { data }
   };

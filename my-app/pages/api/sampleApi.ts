@@ -19,7 +19,7 @@ export type UserType = {
   phone: string;
   externalId: string;
   socialCdx: number;
-}
+};
 
 const apiBaseUrl = "http://localhost:9090/api";
 
@@ -36,8 +36,8 @@ const apiBaseUrl = "http://localhost:9090/api";
 
 export const getUserList = async () => {
   return await api.get(`${apiBaseUrl}/users`);
-}
+};
 
-export const getUserInfoByProperty = async (query:string) => {
-  return await api.get(`${apiBaseUrl}/users/property?${query}`);
-}
+export const getUserInfoById = async (userId: string) => {
+  return await api.get(`${apiBaseUrl}/users?userId=${Number(userId)}`);
+};

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { getUserInfoByProperty, UserType } from "@/pages/api/sampleApi";
+import { getUserInfoById, UserType } from "@/pages/api/sampleApi";
 
 function ServerSidePage({ data }: any) {
   function getDataByKeys(obj: UserType) {
@@ -32,7 +32,7 @@ function ServerSidePage({ data }: any) {
 
 export async function getServerSideProps(cdx: any) {
   const { id } = cdx.query;
-  const data = await getUserInfoByProperty(`scope=userId&value=${id}`);
+  const data = await getUserInfoById(id);
 
   return {
     props: {

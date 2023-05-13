@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getUserInfoByProperty, UserType } from "@/pages/api/sampleApi";
+import { getUserInfoById, UserType } from "@/pages/api/sampleApi";
 
 class Users {
   userId!: number;
@@ -25,14 +25,11 @@ function TestPage() {
   // 페이지 진입시 실행
   useEffect(() => {
     //if (!router.isReady) return;
-    console.log("useEffect start");
+    const userId = String(id);
     async function getData() {
       try {
-        await getUserInfoByProperty(`scope=userId&value=${id}`)
+        await getUserInfoById(userId)
           .then((res: any) => {
-            console.log("debugging res");
-            console.log(res);
-            console.log(res.result);
             if (res.hasOwnProperty("result")) {
               setSample(res.result);
             }
@@ -45,24 +42,10 @@ function TestPage() {
         alert(err);
       }
     }
-    getData();
+    if (id != null && id != undefined) {
+      getData();
+    }
   }, [id]);
-  // if (loading) return <div>로딩중입니다.</div>;
-  // if (error) return <div>에러가 발생했습니다.</div>;
-
-  // async function getDataByKeys() {
-  //   if (sample == null) {
-  //     return <p>로딩중</p>;
-  //   }
-  //   let k: keyof Users;
-  //   let dataArr = [];
-  //   let index = 0;
-  //   for (k in sample) {
-  //     dataArr.push(<p key={index}>{sample[k]}</p>);
-  //     index++;
-  //   }
-  //   return dataArr;
-  // }
 
   return (
     <div>
